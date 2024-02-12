@@ -1,79 +1,80 @@
-let idCounter = 0;
+let contadorId = 0;
 
-function generateId() {
-    idCounter += 1;
-    return idCounter;
+function generarId() {
+    contadorId++;
+    return contadorId;
 }
 
-class ProductManager {
+class AdministradorDeProductos {
     constructor() {
-        this.products = [];
+        this.productos = [];
     }
 
-    addProduct(product) {
-        if (!product.title) {
-            throw new Error("El producto debe tener un título");
+    agregarProducto(producto) {
+        if (!producto.titulo) {
+            throw new Error("El producto necesita un título");
         }
-        if (!product.description) {
-            throw new Error("El producto debe tener una descripción");
+        if (!producto.descripcion) {
+            throw new Error("El producto necesita una descripción");
         }
-        if (!product.price) {
-            throw new Error("El producto debe tener un precio");
+        if (!producto.precio) {
+            throw new Error("El producto necesita un precio");
         }
-        if (!product.thumbnail) {
-            throw new Error("El producto debe tener una imagen");
+        if (!producto.imagen) {
+            throw new Error("El producto necesita una imagen");
         }
-        if (!product.code) {
-            throw new Error("El producto debe tener un código");
+        if (!producto.codigo) {
+            throw new Error("El producto necesita un código");
         }
-        if (!product.stock) {
-            throw new Error("El producto debe tener un stock");
+        if (!producto.stock) {
+            throw new Error("El producto necesita un stock");
         }
         
-        let existingProduct = this.products.find(p => p.code === product.code);
-        if (existingProduct) {
-            throw new Error("El código del producto está repetido");
+        let productoExistente = this.productos.find(p => p.codigo === producto.codigo);
+        if (productoExistente) {
+            throw new Error("El código del producto ya existe");
         }
-        product.id = generateId();
-        this.products.push(product);
+        producto.id = generarId();
+        this.productos.push(producto);
     }
 
-    getProducts() {
-        return this.products;
+    obtenerProductos() {
+        return this.productos;
     }
 
-    getProductById(id) {
-        let product = this.products.find(p => p.id === id);
-        if (product) {
-            return product;
+    obtenerProductoPorId(id) {
+        let producto = this.productos.find(p => p.id === id);
+        if (producto) {
+            return producto;
         } else {
-            console.error("producto no encontrado");
+            console.error("Producto no encontrado");
             return null;
         }
     }
 }
 
-let productManager = new ProductManager();
-console.log(productManager.getProducts());
+let administrador = new AdministradorDeProductos();
+console.log(administrador.obtenerProductos());
 
-let nuevoProducto = {
-    title: "producto prueba",
-    description: "Este es un producto prueba",
-    price: 200,
-    thumbnail: "Sin imagen",
-    code: "1812",
+let producto1 = {
+    titulo: "producto de prueba",
+    descripcion: "Este es un producto de prueba",
+    precio: 200,
+    imagen: "Sin imagen",
+    codigo: "1812",
     stock: 25
 };
-productManager.addProduct(nuevoProducto);
-console.log(productManager.getProducts());
+administrador.agregarProducto(producto1);
+console.log(administrador.obtenerProductos());
 
-let segundoProducto = {
-    title: "segundo producto",
-    description: "Este es un segundo producto",
-    price: 300,
-    thumbnail: "Sin imagen",
-    code: "666",
+let producto2 = {
+    titulo: "segundo producto",
+    descripcion: "Este es un segundo producto",
+    precio: 300,
+    imagen: "Sin imagen",
+    codigo: "666",
     stock: 30
 };
-productManager.addProduct(segundoProducto);
-console.log(productManager.getProducts());
+administrador.agregarProducto(producto2);
+console.log(administrador.obtenerProductos());
+
