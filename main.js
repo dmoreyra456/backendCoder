@@ -11,23 +11,11 @@ class AdministradorDeProductos {
     }
 
     agregarProducto(producto) {
-        if (!producto.titulo) {
-            throw new Error("El producto necesita un título");
-        }
-        if (!producto.descripcion) {
-            throw new Error("El producto necesita una descripción");
-        }
-        if (!producto.precio) {
-            throw new Error("El producto necesita un precio");
-        }
-        if (!producto.imagen) {
-            throw new Error("El producto necesita una imagen");
-        }
-        if (!producto.codigo) {
-            throw new Error("El producto necesita un código");
-        }
-        if (!producto.stock) {
-            throw new Error("El producto necesita un stock");
+        const camposRequeridos = ['titulo', 'descripcion', 'precio', 'imagen', 'codigo', 'stock'];
+        for (const campo of camposRequeridos) {
+            if (!producto[campo]) {
+                throw new Error(`El producto necesita un ${campo}`);
+            }
         }
         
         let productoExistente = this.productos.find(p => p.codigo === producto.codigo);
@@ -77,4 +65,7 @@ let producto2 = {
 };
 administrador.agregarProducto(producto2);
 console.log(administrador.obtenerProductos());
+
+console.log(administrador.obtenerProductoPorId(1));
+
 
