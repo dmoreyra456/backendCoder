@@ -1,9 +1,12 @@
 const express = require('express');
-const ProductManager = require('./src/ProductManager');
-
+const ProductManager = require('./ProductManager');
 
 const app = express();
-let administrador = new ProductManager('./productos.json');
+let administrador = new ProductManager('./src/productos.json');
+
+app.get('/', function(req, res) {
+    res.send('¡Bienvenido a la aplicación!');
+});
 
 app.get('/products', async function(req, res) {
     try {
@@ -32,3 +35,5 @@ const port = 8080;
 app.listen(port, function() {
     console.log('La aplicación está corriendo en el puerto ' + port);
 });
+
+module.exports = app;
