@@ -1,34 +1,16 @@
 const express = require('express');
-const ProductManager = require('./src/ProductManager');
-
-
 const app = express();
-let administrador = new ProductManager('./productos.json');
+const cartRoutes = require('./src/routes/carts');
+const prodRoutes = require('./src/routes/products');
 
-app.get('/products', async function(req, res) {
-    try {
-        let productos = await administrador.obtenerProductos();
-        if (req.query.limit) {
-            productos = productos.slice(0, req.query.limit);
-        }
-        res.send(productos);
-    } catch (error) {
-        res.status(500).send({ error: 'Error al obtener productos' });
-    }
-});
+app.use(express.json());
 
-app.get('/products/:pid', async function(req, res) {
-    try {
-        const id = parseInt(req.params.pid);
-        const producto = await administrador.obtenerProductoPorId(id);
-        res.send(producto);
-    } catch (error) {
-        res.status(404).send({ error: 'Producto no encontrado' });
-    }
-});
+app.use('/carrito', cartRoutes);
+app.use('/products', prodRoutes);
+
 
 const port = 8080;
 
-app.listen(port, function() {
+app.listen(port, function () {
     console.log('La aplicación está corriendo en el puerto ' + port);
 });
