@@ -24,7 +24,11 @@ router.get('/:pid', async function (req, res) {
     try {
         const id = parseInt(req.params.pid);
         const producto = await administrador.obtenerProductoPorId(id);
-        res.send(producto);
+        if (producto){
+            res.send(producto);
+        }else{
+            res.status(404).send({ error: 'Producto no encontrado' });
+        }
     } catch (error) {
         console.log(error)
         res.status(404).send({ error: 'Producto no encontrado' });
