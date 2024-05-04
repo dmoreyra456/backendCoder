@@ -18,16 +18,17 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Ruta para autenticar el inicio de sesión
-router.post('/login', passport.authenticate('local', { successRedirect: '/products', failureRedirect: '/login' }));
+    router.post('/login', passport.authenticate('local', { 
+    successRedirect: '/products', 
+    failureRedirect: '/auth/login', 
+    failureFlash: true 
+}));
 
-// Ruta para cerrar sesión
 router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/login');
 });
 
-// Ruta para autenticar con GitHub
 router.get('/auth/github', passport.authenticate('github'));
 
 // Callback de autenticación de GitHub

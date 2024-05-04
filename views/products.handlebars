@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Productos</title>
 </head>
 <body>
     <h1>Listado de Productos</h1>
 
-    <!-- Mostrar lista de productos -->
     <ul>
         {{#if productos.length}}
             {{#each productos}}
@@ -17,7 +17,6 @@
         {{/if}}
     </ul>
 
-    <!-- Mensaje de paginación -->
     <div>
         {{#if hasPrevPage}}
             <a href="{{prevLink}}">Anterior</a>
@@ -27,11 +26,16 @@
         {{/if}}
     </div>
 
+    <!-- Bienvenida y detalles del usuario -->
+    <h1>Bienvenido</h1>
+    <p>Usuario: {{user.username}}</p>
+    <p>Rol: {{user.role}}</p>
+
     <script>
         function addToCart(productId) {
-            // Aquí puedes agregar la lógica para agregar productos al carrito
             alert(`Producto agregado al carrito: ${productId}`);
         }
     </script>
 </body>
 </html>
+

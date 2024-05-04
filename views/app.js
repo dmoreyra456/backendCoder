@@ -65,3 +65,14 @@ const port = 8080;
 server.listen(port, () => {
   console.log(`Servidor HTTP y WebSocket está corriendo en el puerto ${port}`);
 });
+
+const express = require('express');
+const exphbs = require('express-handlebars');
+const app = express();
+
+// Configuración de Handlebars como motor de plantillas
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+// Configuración de la carpeta de vistas
+app.set('views', path.join(__dirname, 'views'));
